@@ -6,9 +6,12 @@
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
   <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/master/dist/aframe-daydream-controller-component.min.js"></script>
+  <script src="aframe-master.js"></script>
+
+    
     <script src="aframe-particle-system-component.js"></script>
     <script src="aframe-video-controls.js"></script>
-    <script src="aframe-video-controls.min.js"></script>
+<!--     <script src="aframe-video-controls.min.js"></script> -->
     <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script> 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.2.6/dist/aframe-extras.min.js"></script>
 
@@ -16,6 +19,7 @@
   </head>
   <body>
     <a-scene>
+    <a-entity tracked-controls="controller: 0; idPrefix: OpenVR"></a-entity>
     <a-entity daydream-controller></a-entity>
   <!--     <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
       <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
