@@ -2,6 +2,7 @@
   <head>
     <title>Boat</title>
     <script src="build.js"></script>
+    <script src="scripts/set-image.js"></script>
   </head>
   <body>
     <a-scene fog="type: exponential; density: 0.5; color: #10AAF6; far 6; near:0">
@@ -10,6 +11,18 @@
       <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
       <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
       <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
+
+      <script id="link" type="text/html">
+          <a-entity class="link"
+            geometry="primitive: plane; height: 1; width: 1"
+            material="shader: flat; src: ${thumb}"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            set-image="on: click; target: #image-360; src: ${src}"
+            sound="on: click; src: #click-sound"></a-entity>
+        </script>
     </a-assets>
       
       <a-entity position="0 0 0">
@@ -38,8 +51,15 @@
       <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 -7 0" scale="0.5 0.5 0.5" rotation="0 180 0" id="boat"><a-obj-model>
 
       <!-- SPHERE -->
+      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+        <a-entity template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+        <a-entity template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
+        <a-entity template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
+        <a-sphere id="sphere" template="src: #link" data-src="#sechelt" data-thumb="sphere"></a-sphere>
+      </a-entity>
+
       <a-entity id="links">
-        <a-sphere id="sphere" class="selectable" material="color:orange; shader: flat" radius="3" position="0 2 40"></a-sphere>
+        <a-sphere id="sphere1" template="src: #link" data-src="#pic1" data-thumb="#sphere1" class="selectable" material= "src:img/pic1.jpg" radius="3" position="0 2 40"></a-sphere>
       </a-entity>
       
       <!-- SKYBOX -->
@@ -59,22 +79,22 @@
 
     <script>
       var remote = document.querySelector('#remote');
-      var box = document.querySelector('#sphere');
+      var sphere = document.querySelector('#sphere');
       var ray = document.querySelector('#ray');
       var touchStartAxes;
       var minScale = 0.1;
       var scaleMultiplier = 1;
       var newScale = currentScale = 1;
       var focused = false;
-      // box color change
-      box.addEventListener('raycaster-intersected', function () {
+      // sphere color change
+      sphere.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
-        box.setAttribute('color','purple');
+        sphere.setAttribute('material','purple');
       });
-      box.addEventListener('raycaster-intersected-cleared', function () {
+      sphere.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
-        box.setAttribute('color','orange');
+        sphere.setAttribute('color','orange');
       })
       // trackpad to scale
       remote.addEventListener('axismove', function (e) {
@@ -82,7 +102,7 @@
         var deltaX = e.detail.axis[0] - touchStartAxes[0];
         newScale = currentScale + deltaX*scaleMultiplier;
         if (newScale < minScale) newScale = minScale;
-        box.setAttribute('scale',newScale+' '+newScale+' '+newScale);
+        sphere.setAttribute('scale',newScale+' '+newScale+' '+newScale);
       });
       remote.addEventListener('touchstart', function (e) {
         touchStartAxes = e.detail.axis;
@@ -92,13 +112,14 @@
         currentScale = newScale;
       });
       remote.addEventListener('buttondown', function (e) {
-        box.setAttribute('color','black');
+        sphere.setAttribute('color','black');
+
       });
       remote.addEventListener('buttonup', function (e) {
         if (focused) {
-          box.setAttribute('color','purple');
+          sphere.setAttribute('color','purple');
         } else {
-          box.setAttribute('color','orange');
+          sphere.setAttribute('color','orange');
         }
       });
     </script>
