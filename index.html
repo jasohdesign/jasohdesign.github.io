@@ -2,63 +2,100 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>360&deg; Image Gallery</title>
-    <meta name="description" content="360&deg; Image Gallery - A-Frame">
-    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <title>Beyond Me</title>
+    <meta name="description" content="boat">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.2.6/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/master/dist/aframe-daydream-controller-component.min.js"></script>
+
     <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
     <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
     <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
     <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
-
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
-    <script src="set-image.js"></script>
+    <script src="components/set-image.js"></script>
   </head>
+  
   <body>
-    <a-scene>
-      <a-assets>
-        <img id="city" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
-        <img id="city-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg">
-        <img id="cubes-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
-        <img id="sechelt-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
-        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
-        <img id="cubes" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg">
-        <img id="sechelt" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+    <a-scene fog="type: exponential; density: .02; color: #10AAF6; far: 6; near: 0">
+    <a-entity daydream-controller></a-entity>
+    
+    <a-assets>
+      <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
+      <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
+      <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
+      <img id="pic2" crossorigin="anonymous" src="img/pic2.jpg">
+      <img id="pic3" crossorigin="anonymous" src="img/pic3.jpg">
+      <img id="pic4" crossorigin="anonymous" src="img/pic4.jpg">
+      <img id="pic5" crossorigin="anonymous" src="img/pic5.jpg">
+      <img id="pic6" crossorigin="anonymous" src="img/pic6.jpg">
+      <img id="pic6" crossorigin="anonymous" src="img/pic7.jpg">
 
-        <!-- Image link template to be reused. -->
-        <script id="link" type="text/html">
+      <script id="link" type="text/html">
           <a-entity class="link"
             geometry="primitive: plane; height: 1; width: 1"
-            material="shader: flat; src: ${thumb}"
             event-set__1="_event: mousedown; scale: 1 1 1"
             event-set__2="_event: mouseup; scale: 1.2 1.2 1"
             event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
             event-set__4="_event: mouseleave; scale: 1 1 1"
-            set-image="on: click; target: #image-360; src: ${src}"
-            sound="on: click; src: #click-sound"></a-entity>
+            set-image="on: click; target: #image-360; src: ${src}">
+          </a-entity>
         </script>
-      </a-assets>
-
-      <!-- 360-degree image. -->
-      <a-sky id="image-360" radius="10" src="#city"></a-sky>
-
-      <!-- Image links. -->
-      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
-        <a-entity template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
-        <a-entity template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
-        <a-entity template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
-        <a-sphere id="sphere" template="src: #link" data-src="#sechelt" data-thumb="sphere"></a-sphere>
+    </a-assets>
+      <!-- SKYBOX -->
+      <a-sky id="image-360" src="#" radius="100" color="#425C64"></a-sky>
+      
+      <!-- CAMERA -->
+      <a-entity camera wasd-controls position="-10 -2 0" rotation="0 -90 0">
+        <a-cursor id="cursor"> 
+            <a-animation begin="click" easing="ease-in" attribute="scale"
+                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150">
+            </a-animation>
+            <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                   from="1 1 1" to="0.1 0.1 0.1" dur="1500">
+            </a-animation>
+        </a-cursor>
+      </a-entity>
+    
+      <!-- CONTROLLER -->
+      <a-entity boat-controller="easing: 1; acceleration: 40; rollTarget: #boat; turnTarget: #controller-target;">
+        <!-- This is rotated by the controller -->
+        <a-entity id="controller-target" rotation="0 -90 0">
+          <a-entity id="boat-camera-target" position="0 0 -8"></a-entity>
+        
+          <!-- this rolled by the controller -->
+          <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 -7 0" scale="0.5 0.5 0.5" rotation="0 180 0" id="boat"><a-obj-model>
+        </a-entity>
       </a-entity>
 
-      <!-- Camera + cursor. -->
-      <a-entity camera universal-controls>
-        <a-cursor id="cursor"
-          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-          event-set__1="_event: mouseenter; color: springgreen"
-          event-set__2="_event: mouseleave; color: black"
-          fuse="false"
-          raycaster="objects: .link"></a-cursor>
+      <!-- PHOTO SPHERES -->
+      <a-entity id="links">
+          <a-sphere id="pic2_sphere" material geometry src="img/pic2.jpg" radius="2" position="8 -5 -10" template="src: #link"></a-sphere>
+          <!-- <a-sphere id="pic3_sphere" material geometry src="img/pic3.jpg" radius="2" position="20 -5 -40"></a-sphere>
+          <a-sphere id="pic4_sphere" material geometry src="img/pic4.jpg" radius="2" position="50 -5 -20"></a-sphere>
+          <a-sphere id="pic5_sphere" material geometry src="img/pic5.jpg" radius="2" position="50 -5 60"></a-sphere>
+          <a-sphere id="pic6_sphere" material geometry src="img/pic6.jpg" radius="2" position="50 -5 30"></a-sphere>
+          <a-sphere id="pic7_sphere" material geometry src="img/pic7.jpg" radius="2" position="50 -5 -40"></a-sphere> -->
       </a-entity>
-    </a-scene>
+      <!-- THE WATER -->
+      <a-entity geometry="primitive: plane" position="0 -7 0" rotation="90 0 0" scale="200 200" material="color:#132340; opacity: 0.9; side: double"></a-entity>
+
+      <a-entity geometry="primitive:plane" position="0 -6.1 0" rotation="90 0 0" scale="199 199" material="opacity: 0.2; color:#10AAF6; side: double">
+        <a-animation attribute="position"
+           from="0 -6.0 0"
+           to="0 -6.3 0"
+           dur="1000"
+           repeat="indefinite"
+           direction="alternate">
+        </a-animation>
+      </a-entity>
+      
+      <!-- LIGHTS -->
+      <a-entity light="type:ambient; color:white; intensity: 0.8" position="0 0 0"></a-entity>
+      <a-entity light="type:directional; color:white" position="1 1 1 intensity: 1"></a-entity>
+
+  </a-scene>
+
+
+
   </body>
 </html>
