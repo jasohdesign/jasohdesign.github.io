@@ -94,6 +94,8 @@
       sphere.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
         sphere.setAttribute('color','orange');
+        sphere.setAttribute('material','shader: flat');
+
       })
       // trackpad to scale
       remote.addEventListener('axismove', function (e) {
