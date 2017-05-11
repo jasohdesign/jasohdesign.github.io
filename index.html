@@ -11,6 +11,7 @@
       <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
       <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
       <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
+      <audio id="sound" src="assets/waves_sound.mp3"></audio>
 
       <!-- <script id="link" type="text/html">
           <a-entity class="link"
@@ -46,7 +47,14 @@
            direction="alternate">
         </a-animation>
       </a-entity>
-      
+
+      <!-- WATER SOUND -->
+      <!-- <a-sound sound="src: url(sound" autoplay="true" position="0 -30 0"></a-sound> -->
+      <a-entity sound="src: url(assets/waves_sound.mp3); autoplay: true"></a-entity>
+
+<!-- <a-entity id="river" geometry="primitive: plane" material="color: blue"
+          position="-10 0 0" sound="src: url(river.mp3); autoplay: true"></a-entity> -->
+
       <!-- OBJ MODEL -->
       <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 -7 0" scale="0.5 0.5 0.5" rotation="0 180 0" id="boat"><a-obj-model>
 
@@ -93,8 +101,8 @@
       });
       sphere1.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
-        sphere.setAttribute('color','orange');
-        sphere.setAttribute('material','shader: flat');
+        sphere1.setAttribute('color','orange');
+        sphere1.setAttribute('material','shader: flat');
       })
       // trackpad to scale
       remote.addEventListener('axismove', function (e) {
