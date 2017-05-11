@@ -12,7 +12,7 @@
       <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
       <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
 
-      <script id="link" type="text/html">
+      <!-- <script id="link" type="text/html">
           <a-entity class="link"
             geometry="primitive: plane; height: 1; width: 1"
             material="shader: flat; src: ${thumb}"
@@ -22,7 +22,7 @@
             event-set__4="_event: mouseleave; scale: 1 1 1"
             set-image="on: click; target: #image-360; src: ${src}"
             sound="on: click; src: #click-sound"></a-entity>
-        </script>
+        </script> -->
     </a-assets>
       
       <a-entity position="0 0 0">
@@ -58,9 +58,8 @@
         <a-sphere id="sphere" template="src: #link" data-src="#sechelt" data-thumb="sphere"></a-sphere>
       </a-entity>
 
-      <a-entity id="links">
-        <a-sphere id="sphere1" template="src: #link" data-src="#pic1" data-thumb="#sphere1" class="selectable" material= "src:img/pic1.jpg" radius="3" position="0 2 40"></a-sphere>
-      </a-entity>
+      <a-sphere id="sphere1" class="selectable" material= "color:orange; shader: flat" radius="3" position="0 2 40"></a-sphere>           
+    
       
       <!-- SKYBOX -->
       <a-sky radius="100" color="#10AAF6"></a-sky>
@@ -90,7 +89,7 @@
       sphere.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
-        sphere.setAttribute('material','purple');
+        sphere.setAttribute('material','src:img/pic1.jpg');
       });
       sphere.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
