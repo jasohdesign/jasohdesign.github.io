@@ -4,26 +4,50 @@
     <script src="build.js"></script>
   </head>
   <body>
-    <a-scene fog="type: exponential; density: 0.2; color: #10AAF6; far 6; near:0">
+    <a-scene fog="type: exponential; density: 0.5; color: #10AAF6; far 6; near:0">
 
     <a-assets>
       <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
       <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
+      <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
     </a-assets>
       
       <a-entity position="0 0 0">
         <a-camera></a-camera>
+        
         <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
           <a-cone id="ray" color="cyan" position="0 0 -2" rotation="-90 0 0" radius-bottom="0.005" radius-top="0.001" height="4"></a-cone>
           <a-box id="position-guide" visible="false" position="0 0 -2"></a-box>
         </a-entity>
       </a-entity>
-      
-      <a-box id="box" class="selectable" material="color:orange; shader: flat" position="0 1 -4"></a-box>
 
-      <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 1 -10" scale="0.3 0.3 0.3" id="boat"><a-obj-model>
+        <!-- THE WATER -->
+      <a-entity geometry="primitive: plane" position="0 -7 0" rotation="90 0 0" scale="200 200" material="color:#10AAF6; opacity: 0.9; side: double"></a-entity>
+
+      <a-entity geometry="primitive:plane" position="0 -6.1 0" rotation="90 0 0" scale="199 199" material="opacity: 0.2; color:#10AAF6; side: double">
+        <a-animation attribute="position"
+           from="0 -6.0 0"
+           to="0 -6.3 0"
+           dur="1000"
+           repeat="indefinite"
+           direction="alternate">
+        </a-animation>
+      </a-entity>
       
-      <a-sky color="blue"></a-sky>
+      <!-- OBJ MODEL -->
+      <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 -7 0" scale="0.5 0.5 0.5" rotation="0 180 0" id="boat"><a-obj-model>
+
+      <!-- SPHERE -->
+      <a-entity id="links">
+        <a-sphere id="sphere" class="selectable" material="color:orange; shader: flat" radius="3" position="0 2 40"></a-sphere>
+      </a-entity>
+      
+      <!-- SKYBOX -->
+      <a-sky radius="100" color="#10AAF6"></a-sky>
+
+      <!-- LIGHT -->
+      <a-entity light="type:ambient; color:white; intensity: 0.8" position="0 0 0"></a-entity>
+      <a-entity light="type:directional; color:white" position="1 1 1 intensity: 1"></a-entity>
     </a-scene>
     
     <!-- GitHub Corner. -->
@@ -35,7 +59,7 @@
 
     <script>
       var remote = document.querySelector('#remote');
-      var box = document.querySelector('#box');
+      var box = document.querySelector('#sphere');
       var ray = document.querySelector('#ray');
       var touchStartAxes;
       var minScale = 0.1;
