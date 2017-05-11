@@ -12,6 +12,8 @@
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
     <script src="set-image.js"></script>
+
+    <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/master/dist/aframe-daydream-controller-component.min.js"></script>
   </head>
   <body>
     <a-scene>
@@ -38,6 +40,7 @@
         </script>
       </a-assets>
 
+      <a-entity daydream-controller></a-entity>
       <!-- 360-degree image. -->
       <a-sky id="image-360" radius="10" src="#city"></a-sky>
 
@@ -50,7 +53,7 @@
       </a-entity>
 
       <!-- Camera + cursor. -->
-      <a-entity camera universal-controls>
+      <!-- <a-entity camera universal-controls>
         <a-cursor id="cursor"
           animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
           animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
@@ -58,7 +61,7 @@
           event-set__2="_event: mouseleave; color: black"
           fuse="true"
           raycaster="objects: .link"></a-cursor>
-      </a-entity>
+      </a-entity> -->
     </a-scene>
   </body>
 </html>
