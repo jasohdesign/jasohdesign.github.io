@@ -13,7 +13,7 @@
     <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
 
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
-    <script src="set-image.js"></script>
+    <!-- <script src="set-image.js"></script> -->
   </head>
   <body>
     <a-scene>
@@ -41,15 +41,19 @@
       <a-entity id="voice_message" position="0 0 0" sound="src: url(assets/voice_message.mp3); autoplay: false"></a-entity>
 
       <!-- Icons -->
-      <a-image class="selectable" id="back" src="#back_icon" position="0 -1 -4" width="1" height="1"></a-image>
-      <a-image class="selectable" id="sound" src="#sound_icon" position="1 -1 -4" width="1" height="1"></a-image>
-      <a-image class="selectable" id="home" src="#home_icon" position="2 -1 -4" width="1" height="1"></a-image>
+      <a-image class="selectable" id="back" src="#back_icon" position="0.5 -1 -4" width="1" height="1"></a-image>
+      <a-image class="selectable" id="speaker" src="#sound_icon" position="1.5 -1 -4" width="1" height="1"></a-image>
+      <a-image class="selectable" id="home" src="#home_icon" position="2.5 -1 -4" width="1" height="1"></a-image>
   
       <script>
+      var sound = document.querySelector('[sound]');
+
       var remote = document.querySelector('#remote');
       var back = document.querySelector('#back');
-      var sound = document.querySelector('#sound');
+      var speaker = document.querySelector('#speaker');
       var home = document.querySelector('#home');
+
+      var shouldPlaySound = false;
 
       var ray = document.querySelector('#ray');
       var voice_message = document.querySelector('#voice_message');
@@ -73,16 +77,18 @@
       })
 
       // sound selected
-      sound.addEventListener('raycaster-intersected', function () {
+      speaker.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
-        sound.setAttribute('width','1.5');
-        sound.setAttribute('height','1.5');
+        speaker.setAttribute('width','1.5');
+        speaker.setAttribute('height','1.5');
+        shouldPlaySound = true;
       });
-      sound.addEventListener('raycaster-intersected-cleared', function () {
+      speaker.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
-        sound.setAttribute('width','1.0');
-        sound.setAttribute('height','1.0');
+        speaker.setAttribute('width','1.0');
+        speaker.setAttribute('height','1.0');
+        shouldPlaySound = false;
       })
 
       // home selected
@@ -114,7 +120,15 @@
       //   currentScale = newScale;
       // });
       remote.addEventListener('buttondown', function (e) {
-        voice_message.setAttribute('sound','src: url(assets/voice_message.mp3); autoplay: true');
+        var target1 = e.target 
+        // console.log(e.target);
+        if (shouldPlaySound == true){
+          entity.components.sound.playSound();
+        } else{
+          entity.components.sound.pauseSound();
+          // voice_message.setAttribute('sound','src: url(assets/voice_message.mp3); autoplay: true');
+        }
+        
         // location.href='image1.html'
       });
       remote.addEventListener('buttonup', function (e) {
