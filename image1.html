@@ -25,7 +25,7 @@
         <audio crossorigin="anonymous" src="assets/voice_message.mp3"></audio>
       </a-assets>
 
-      <a-entity position="0 0 0">
+      <a-entity position="0 0 1">
         <a-camera></a-camera>
         
         <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
@@ -67,8 +67,8 @@
       back.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
-        back.setAttribute('width','1.5');
-        back.setAttribute('height','1.5');
+        back.setAttribute('width','1.3');
+        back.setAttribute('height','1.3');
       });
       back.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
@@ -80,8 +80,8 @@
       speaker.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
-        speaker.setAttribute('width','1.5');
-        speaker.setAttribute('height','1.5');
+        speaker.setAttribute('width','1.3');
+        speaker.setAttribute('height','1.3');
         shouldPlaySound = true;
       });
       speaker.addEventListener('raycaster-intersected-cleared', function () {
@@ -95,8 +95,8 @@
       home.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
-        home.setAttribute('width','1.5');
-        home.setAttribute('height','1.5');
+        home.setAttribute('width','1.3');
+        home.setAttribute('height','1.3');
       });
       home.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
@@ -123,9 +123,9 @@
         var target1 = e.target 
         // console.log(e.target);
         if (shouldPlaySound == true){
-          entity.components.sound.playSound();
+          voice_message.components.sound.playSound();
         } else{
-          entity.components.sound.pauseSound();
+          voice_message.components.sound.pauseSound();
           // voice_message.setAttribute('sound','src: url(assets/voice_message.mp3); autoplay: true');
         }
         
