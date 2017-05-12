@@ -36,14 +36,13 @@
         <!-- center -->
         <a-sphere position="0 2 -5" radius="0.5" color="#BFBCC8" opacity="0.5"></a-sphere>
        
-        <!-- <a-sphere position="0 0 -5" radius="0.2" color="#DCD9E7" opacity="0.5">
+        <a-sphere position="0 0 -5" radius="0.2" color="#DCD9E7" opacity="0.5">
            <a-animation attribute="position" dur="5000" from="0 0 -5" to="0 0 -7" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
-        </a-sphere>  -->
-
-        <!-- RIGHT BOTTOM/WATER -->
-        <!-- <a-sphere position="-1 0.3 -7" radius="0.2" color="#DCD9E7" opacity="0.5">
+        </a-sphere> 
+        <a-sphere position="-1 0.3 -7" radius="0.2" color="#DCD9E7" opacity="0.5">
             <a-animation attribute="position" dur="5000" from="-1 0.3 -7" to="-1 0.3 -5" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
-        </a-sphere> -->
+        </a-sphere>
+        <!-- BOTTOM / WATER -->
         <a-sphere id="ToBoatScene_Sphere" class="selectable" position="-1.0 0.6 -5" radius="0.3" color="#DCD9E7" opacity="0.5">
             <a-animation id="ToBoatScene_Animation" attribute="position" dur="5000" from="-1.0 0.6 -5" to="-1.0 0.6 -7" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
         </a-sphere>
@@ -59,8 +58,9 @@
         <a-sphere position="1.2 1.2 -2.8" radius="0.2" color="#DCD9E7" opacity="0.5">
             <a-animation attribute="position" dur="5000" from="1.2 1.2 -2.8" to="1.2 1.2 -5" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
         </a-sphere>
-        <a-sphere position="0 4 -5" radius="0.2" color="#DCD9E7" opacity="0.5">
-            <a-animation attribute="position" dur="5000" from="0 4 -5" to="0 4 -3" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
+        <!-- TOP / HOUSE -->
+        <a-sphere id="ToHouseScene_Sphere" class="selectable" position="0 4 -5" radius="0.3" color="#DCD9E7" opacity="0.5">
+            <a-animation id="ToHouseScene_Animation" attribute="position" dur="5000" from="0 4 -5" to="0 4 -3" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
         </a-sphere>
         <a-sphere position="-2 3.3 -6" radius="0.2" color="#DCD9E7" opacity="0.5">
             <a-animation attribute="position" dur="5000" from="-2 3.3 -6" to="-2 3.3 -8" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
@@ -135,46 +135,65 @@
         var remote = document.querySelector('#remote');
         
         var BoatSphere = document.querySelector('#ToBoatScene_Sphere');
-        // var BoatAnimation = document.querySelector('#ToBoatScene_Animation');
-        // var goToBoatScene = false;
+        var HouseSphere = document.querySelector('#ToHouseScene_Sphere');
+        var BoatSphereTouched = false;
+        var HouseSphereTouched = false;
 
-        // var speaker = document.querySelector('#speaker');
-        // var home = document.querySelector('#home');
-
-        // var shouldPlaySound = false;
-        // var goBack = false;
 
         var ray = document.querySelector('#ray');
-        // var voice_message = document.querySelector('#voice_message');
         var touchStartAxes;
         var minScale = 0.1;
         var scaleMultiplier = 1;
         var newScale = currentScale = 1;
         var focused = false;
       
-        // back selected
+        // BoatSphere selected
         BoatSphere.addEventListener('raycaster-intersected', function () {
         if (focused) return;
             focused = true;
             // BoatAnimation.stop();
-            // goToBoatScene = true;
+            BoatSphereTouched = true;
             BoatSphere.setAttribute('color','#8FCAFF');
             BoatSphere.setAttribute('opacity','1');
         });
         BoatSphere.addEventListener('raycaster-intersected-cleared', function () {
             focused = false;
             // BoatAnimation.start();
-            // goToBoatScene = false;
+            BoatSphereTouched = false;
             BoatSphere.setAttribute('color','#DCD9E7');
             BoatSphere.setAttribute('opacity','0.5');
       });
-      // go back to original water scene
+      // go to boat scene
         remote.addEventListener('buttondown', function (e) {
         // var target1 = e.target 
-        BoatSphere.setAttribute('color','black');
-        // if (goToBoatScene == true){
-          location.href='home.html'
-        // };
+            if (BoatSphereTouched == true){
+            location.href='home.html';
+            BoatSphere.setAttribute('color','black');
+            }
+      });
+
+        // HouseSphere selected
+        HouseSphere.addEventListener('raycaster-intersected', function () {
+        if (focused) return;
+            focused = true;
+            // BoatAnimation.stop();
+            HouseSphereTouched = true;
+            HouseSphere.setAttribute('color','#8FCAFF');
+            HouseSphere.setAttribute('opacity','1');
+        });
+        HouseSphere.addEventListener('raycaster-intersected-cleared', function () {
+            focused = false;
+            // BoatAnimation.start();
+            HouseSphereTouched = false;
+            HouseSphere.setAttribute('color','#DCD9E7');
+            HouseSphere.setAttribute('opacity','0.5');
+      });
+        remote.addEventListener('buttondown', function (e) {
+        // var target1 = e.target 
+            if (HouseSphereTouched == true){
+            location.href='house.html';
+            HouseSphere.setAttribute('color','black');
+            }
       });
 
 // auto enter VR
@@ -183,7 +202,7 @@
           if (scene.hasLoaded) {
             scene.enterVR();
           } else {
-            el.addEventListener('loaded', function () {
+            addEventListener('loaded', function () {
               scene.enterVR();
             });
           }

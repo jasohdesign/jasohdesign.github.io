@@ -6,7 +6,7 @@
     <script src="scripts/set-image.js"></script>
   </head>
   <body>
-    <a-scene auto-enter-vr fog="type: exponential; density: 0.01; color: #10AAF6; far: 1; near: 0">
+    <a-scene fog="type: exponential; density: 0.01; color: #10AAF6; far: 1; near: 0">
 
     <a-assets>
       <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
@@ -64,6 +64,7 @@
     <script>
       var remote = document.querySelector('#remote');
       var sphere1 = document.querySelector('#sphere1');
+      var RayOnSphere = false;
       var ray = document.querySelector('#ray');
       var touchStartAxes;
       var minScale = 0.1;
@@ -77,12 +78,14 @@
         focused = true;
         sphere1.setAttribute('material','src:img/pic1.jpg');
         sphere1.setAttribute('radius','4');
+        RayOnSphere = true;
       });
       sphere1.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
         sphere1.setAttribute('color','white');
         sphere1.setAttribute('material','shader: flat');
         sphere1.setAttribute('radius','4');
+        RayOnSphere = false;
       })
       // trackpad to scale
       remote.addEventListener('axismove', function (e) {
@@ -101,7 +104,9 @@
       });
       remote.addEventListener('buttondown', function (e) {
         sphere1.setAttribute('color','black');
-        location.href='image1.html'
+        if (RayOnSphere == true){
+          location.href='image1.html';
+        }
       });
       // remote.addEventListener('buttonup', function (e) {
       //   if (focused) {
