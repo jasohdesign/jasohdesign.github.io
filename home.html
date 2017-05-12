@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <title>Waves</title>
+    <script src="scripts/build.js"></script>
+    <script src="scripts/set-image.js"></script>
+  </head>
+  <body>
+    <a-scene fog="type: exponential; density: 0.01; color: #10AAF6; far: 1; near: 0">
+
+    <a-assets>
+      <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
+      <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
+      <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
+      <audio id="sound" src="assets/waves_sound.mp3"></audio>
+    </a-assets>
+      
+    <a-entity position="0 0 0">
+      <a-camera></a-camera>
+      
+      <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
+        <a-cone id="ray" color="cyan" position="0 0 -2" rotation="-90 0 0" radius-bottom="0.005" radius-top="0.001" height="4"></a-cone>
+        <a-box id="position-guide" visible="false" position="0 0 -2"></a-box>
+      </a-entity>
+    </a-entity>
+
+        <!-- THE WATER -->
+    <a-entity geometry="primitive: plane" position="0 -7 0" rotation="90 0 0" scale="200 200" material="color:#10AAF6; opacity: 0.9; side: double"></a-entity>
+
+    <a-entity geometry="primitive:plane" position="0 -6.1 0" rotation="90 0 0" scale="199 199" material="opacity: 0.2; color:#10AAF6; side: double">
+      <a-animation attribute="position"
+         from="0 -6.0 0"
+         to="0 -6.3 0"
+         dur="1000"
+         repeat="indefinite"
+         direction="alternate">
+      </a-animation>
+    </a-entity>
+
+    <!-- WATER SOUND -->
+    <a-entity sound="src: url(assets/waves_sound.mp3); autoplay: true"></a-entity>
+
+    <!-- OBJ MODEL -->
+    <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 -7 0" scale="0.5 0.5 0.5" rotation="0 180 0" id="boat"><a-obj-model>
+
+    <!-- SPHERE -->
+    <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+      <a-entity template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+      <a-entity template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
+      <a-entity template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb"></a-entity>
+      <a-sphere id="sphere" template="src: #link" data-src="#sechelt" data-thumb="sphere"></a-sphere>
+    </a-entity>
+
+    <a-sphere id="sphere1" class="selectable" material= "color:white; shader: flat" radius="3" position="0 2 40"></a-sphere>
+    
+    <!-- SKYBOX -->
+    <a-sky radius="100" color="#10AAF6"></a-sky>
+
+    <!-- LIGHT -->
+    <a-entity light="type:ambient; color:white; intensity: 0.8" position="0 0 0"></a-entity>
+    <a-entity light="type:directional; color:white" position="1 1 1 intensity: 1"></a-entity>
+  </a-scene>
+    
+    <script>
+      var remote = document.querySelector('#remote');
+      var sphere1 = document.querySelector('#sphere1');
+      var ray = document.querySelector('#ray');
+      var touchStartAxes;
+      var minScale = 0.1;
+      var scaleMultiplier = 1;
+      var newScale = currentScale = 1;
+      var focused = false;
+
+      // sphere color change
+      sphere1.addEventListener('raycaster-intersected', function () {
+        if (focused) return;
+        focused = true;
+        sphere1.setAttribute('material','src:img/pic1.jpg');
+        sphere1.setAttribute('radius','4');
+      });
+      sphere1.addEventListener('raycaster-intersected-cleared', function () {
+        focused = false;
+        sphere1.setAttribute('color','white');
+        sphere1.setAttribute('material','shader: flat');
+        sphere1.setAttribute('radius','4');
+      })
+      // trackpad to scale
+      remote.addEventListener('axismove', function (e) {
+        if (!touchStartAxes) return;
+        var deltaX = e.detail.axis[0] - touchStartAxes[0];
+        newScale = currentScale + deltaX*scaleMultiplier;
+        if (newScale < minScale) newScale = minScale;
+        sphere1.setAttribute('scale',newScale+' '+newScale+' '+newScale);
+      });
+      remote.addEventListener('touchstart', function (e) {
+        touchStartAxes = e.detail.axis;
+      });
+      remote.addEventListener('touchend', function (e) {
+        touchStartAxes = null;
+        currentScale = newScale;
+      });
+      remote.addEventListener('buttondown', function (e) {
+        sphere1.setAttribute('color','black');
+        location.href='image1.html'
+      });
+      // remote.addEventListener('buttonup', function (e) {
+      //   if (focused) {
+      //     sphere1.setAttribute('color','purple');
+      //   } else {
+      //     sphere1.setAttribute('color','orange');
+      //   }
+      // });
+    </script>
+
+    
+  </body>
+</html>
