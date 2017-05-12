@@ -20,7 +20,9 @@
       <a-assets>
         <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
         <img id="sound_icon" crossorigin="anonymous" src="img/sound_icon.png">
-        <audio id="voice_message" crossorigin="anonymous" src="assets/voice_message.mp3"></audio>
+        <img id="home_icon" crossorigin="anonymous" src="img/home_icon.png">
+        <img id="back_icon" crossorigin="anonymous" src="img/back_icon.png">
+        <audio crossorigin="anonymous" src="assets/voice_message.mp3"></audio>
       </a-assets>
 
       <a-entity position="0 0 0">
@@ -33,15 +35,20 @@
       </a-entity>
       <!-- 360-degree image. -->
       <a-sky id="image-360" radius="10" src="#pic1"></a-sky>
-
      
-      <a-image class="selectable" id="#sound" src="#sound_icon" position="0 -1 -4" width="1" height="1"></a-image>
-          
+      <!-- Sound -->
+      <a-entity id="voice_message" position="0 0 0" sound="src: url(assets/voice_message.mp3); autoplay: false"></a-entity>
+
+      <!-- Icons -->
+      <a-image class="selectable" id="back_icon" src="#back_icon" position="0 -1 -4" width="1" height="1" onclick="location.href='../index.html'"></a-image>
+      <a-image class="selectable" id="sound" src="#sound_icon" position="1 -1 -4" width="1" height="1"></a-image>
+      <a-image class="selectable" src="#home_icon" position="2 -1 -4" width="1" height="1"></a-image>
   
       <script>
       var remote = document.querySelector('#remote');
       var sound = document.querySelector('#sound');
       var ray = document.querySelector('#ray');
+      var voice_message = document.querySelector('#voice_message');
       var touchStartAxes;
       var minScale = 0.1;
       var scaleMultiplier = 1;
@@ -76,7 +83,7 @@
       });
       remote.addEventListener('buttondown', function (e) {
         sound.setAttribute('color','black');
-
+        voice_message.setAttribute('sound','src: url(assets/voice_message.mp3); autoplay: true');
         // location.href='image1.html'
       });
       remote.addEventListener('buttonup', function (e) {
