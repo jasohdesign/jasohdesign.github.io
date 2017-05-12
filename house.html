@@ -47,12 +47,19 @@ src: url(img/outside3.jpg)"></a-entity> -->
 
 <a-assets>
     <video id="video_1" src="videos/theXX.mp4"></video>
+    <!-- <img id="home_icon" crossorigin="anonymous" src="img/home_icon.png"> -->
+    <img id="back_icon" crossorigin="anonymous" src="img/back_icon.png">
 </a-assets>
 
 <a-video src="#video_1" width="9" height="5" position="0 2.8 -5.519" autoplay="false"></a-video>
 <a-entity video-controls="src:#video_1"></a-entity>
 
+<!-- Icons -->
+      <a-image class="selectable" id="back" src="#back_icon" position="0.5 -1 -4" width="1" height="1"></a-image>
+     <!--  <a-image class="selectable" id="speaker" src="#sound_icon" position="1.5 -1 -4" width="1" height="1"></a-image>
+      <a-image class="selectable" id="home" src="#home_icon" position="2.5 -1 -4" width="1" height="1"></a-image> -->
 <!-- Table -->
+
 <a-entity geometry="primitive: box; depth: 1.6; height: 0.1; width: 6" position="0 0.55 1.1" material="shader: flat; 
 src: url(img/table.jpg)">
  <a-entity geometry="primitive: box; depth: 1.6; height: 1; width: 0.2" position="2.9 -0.55 -0" material="shader: flat;
@@ -265,6 +272,61 @@ src: url(img/wood1.jpg); repeat: 1 2"></a-entity>
 </a-entity> -->
  
       <!-- Lighting and background -->
+       <script>
+      // var sound = document.querySelector('[sound]');
+
+      var remote = document.querySelector('#remote');
+      var back = document.querySelector('#back');
+      // var speaker = document.querySelector('#speaker');
+      // var home = document.querySelector('#home');
+
+      // var shouldPlaySound = false;
+      var goBack = false;
+      // var backToHome = true;
+
+      var ray = document.querySelector('#ray');
+      var voice_message = document.querySelector('#voice_message');
+      var touchStartAxes;
+      var minScale = 0.1;
+      var scaleMultiplier = 1;
+      var newScale = currentScale = 1;
+      var focused = false;
+      
+      // back selected
+      back.addEventListener('raycaster-intersected', function () {
+        if (focused) return;
+        focused = true;
+        back.setAttribute('width','1.3');
+        back.setAttribute('height','1.3');
+        goBack = true;
+      });
+      back.addEventListener('raycaster-intersected-cleared', function () {
+        focused = false;
+        back.setAttribute('width','1.0');
+        back.setAttribute('height','1.0');
+        goBack = false;
+      })
+      // go back to original water scene
+      remote.addEventListener('buttondown', function (e) {
+        var target1 = e.target 
+        // console.log(e.target);
+        if (goBack == true){
+          location.href='index.html'
+        };
+      });
+      
+      // auto enter VR
+        window.addEventListener('load', function () {
+          var scene = document.querySelector('a-scene');
+          if (scene.hasLoaded) {
+            scene.enterVR();
+          } else {
+            el.addEventListener('loaded', function () {
+              scene.enterVR();
+            });
+          }
+        });
+    </script>
     </a-scene>
   </body>
 </html>

@@ -54,6 +54,7 @@
 
       var shouldPlaySound = false;
       var goBack = false;
+      var backToHome = true;
 
       var ray = document.querySelector('#ray');
       var voice_message = document.querySelector('#voice_message');
@@ -118,11 +119,13 @@
         focused = true;
         home.setAttribute('width','1.3');
         home.setAttribute('height','1.3');
+        backToHome = true;
       });
       home.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
         home.setAttribute('width','1.0');
         home.setAttribute('height','1.0');
+        backToHome = false;
       })
 
       remote.addEventListener('buttonup', function (e) {
@@ -131,6 +134,14 @@
         } else {
           sound.setAttribute('color','orange');
         }
+      });
+      // go back to index.html 
+      remote.addEventListener('buttondown', function (e) {
+        var target1 = e.target 
+        // console.log(e.target);
+        if (backToHome = true){
+          location.href='index.html'
+        };
       });
 
       // auto enter VR
