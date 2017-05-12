@@ -2,7 +2,7 @@
   <head>
     <title>Waves</title>
     <script src="scripts/build.js"></script>
-    <script src="scripts/autoEnterVR.js"></script>
+    <!-- <script src="scripts/autoEnterVR.js"></script> -->
     <script src="scripts/set-image.js"></script>
   </head>
   <body>
@@ -110,6 +110,17 @@
       //     sphere1.setAttribute('color','orange');
       //   }
       // });
+    // auto enter VR
+        window.addEventListener('load', function () {
+          var scene = document.querySelector('a-scene');
+          if (scene.hasLoaded) {
+            scene.enterVR();
+          } else {
+            el.addEventListener('loaded', function () {
+              scene.enterVR();
+            });
+          }
+        });
     </script>
 
     

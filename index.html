@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Home</title>
     <meta name="description" content="Home">
-    <script src="scripts/autoEnterVR.js"></script>
+    <!-- <script src="scripts/autoEnterVR.js"></script> -->
     <!-- <script src="scripts/build.js"></script> -->
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script> 
@@ -176,6 +176,18 @@
           location.href='home.html'
         // };
       });
+
+// auto enter VR
+        window.addEventListener('load', function () {
+          var scene = document.querySelector('a-scene');
+          if (scene.hasLoaded) {
+            scene.enterVR();
+          } else {
+            el.addEventListener('loaded', function () {
+              scene.enterVR();
+            });
+          }
+        });
     </script>
         
         <!-- <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#CBCED3"></a-plane> -->
