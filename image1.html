@@ -46,7 +46,7 @@
   
       <script>
       var remote = document.querySelector('#remote');
-      var sound = document.querySelector('#sound');
+      var sound = document.querySelector('.selectable');
       var ray = document.querySelector('#ray');
       var voice_message = document.querySelector('#voice_message');
       var touchStartAxes;
@@ -54,7 +54,8 @@
       var scaleMultiplier = 1;
       var newScale = currentScale = 1;
       var focused = false;
-      // sphere color change
+      
+      // icons selected
       sound.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
