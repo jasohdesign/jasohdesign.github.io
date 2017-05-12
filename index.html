@@ -135,7 +135,7 @@
         
         var BoatSphere = document.querySelector('#ToBoatScene_Sphere');
         // var BoatAnimation = document.querySelector('#ToBoatScene_Animation');
-        var goToBoatScene = false;
+        // var goToBoatScene = false;
 
         // var speaker = document.querySelector('#speaker');
         // var home = document.querySelector('#home');
@@ -156,14 +156,14 @@
         if (focused) return;
             focused = true;
             // BoatAnimation.stop();
-            goToBoatScene = true;
+            // goToBoatScene = true;
             BoatSphere.setAttribute('color','#8FCAFF');
             BoatSphere.setAttribute('opacity','1');
         });
-        back.addEventListener('raycaster-intersected-cleared', function () {
+        BoatSphere.addEventListener('raycaster-intersected-cleared', function () {
             focused = false;
             // BoatAnimation.start();
-            goToBoatScene = false;
+            // goToBoatScene = false;
             BoatSphere.setAttribute('color','#DCD9E7');
             BoatSphere.setAttribute('opacity','0.5');
       });
@@ -171,7 +171,6 @@
         remote.addEventListener('buttondown', function (e) {
         // var target1 = e.target 
         BoatSphere.setAttribute('color','black');
-
         // if (goToBoatScene == true){
           location.href='home.html'
         // };
