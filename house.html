@@ -17,13 +17,15 @@
   </head>
   <body>
     <a-scene>
-    <a-entity position="0 0 1">
+    <a-entity position="0 0 3">
             <a-camera></a-camera>
             
             <a-entity id="remote" daydream-controller raycaster="objects: .selectable">
               <a-cone id="ray" color="cyan" position="0 0 -2" rotation="-90 0 0" radius-bottom="0.005" radius-top="0.001" height="4"></a-cone>
               <a-box id="position-guide" visible="false" position="0 0 -2"></a-box>
             </a-entity>
+
+            <a-image class="selectable" id="back" src="#back_icon" position="0 0 1" width="1" height="1"></a-image>
       </a-entity>
   <!--     <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
       <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
@@ -54,12 +56,6 @@ src: url(img/outside3.jpg)"></a-entity> -->
 <a-video src="#video_1" width="9" height="5" position="0 2.8 -5.519" autoplay="false"></a-video>
 <a-entity video-controls="src:#video_1"></a-entity>
 
-<!-- Icons -->
-      <a-image class="selectable" id="back" src="#back_icon" position="0.5 -1 -4" width="1" height="1"></a-image>
-     <!--  <a-image class="selectable" id="speaker" src="#sound_icon" position="1.5 -1 -4" width="1" height="1"></a-image>
-      <a-image class="selectable" id="home" src="#home_icon" position="2.5 -1 -4" width="1" height="1"></a-image> -->
-<!-- Table -->
-
 <a-entity geometry="primitive: box; depth: 1.6; height: 0.1; width: 6" position="0 0.55 1.1" material="shader: flat; 
 src: url(img/table.jpg)">
  <a-entity geometry="primitive: box; depth: 1.6; height: 1; width: 0.2" position="2.9 -0.55 -0" material="shader: flat;
@@ -79,10 +75,10 @@ src: url(img/floor2.jpg); repeat: 15 10"></a-entity>
 <a-entity geometry="primitive: box; depth: 18; height: 0.5; width: 30" position="0 -0.5 20" material="shader: flat; 
 src: url(img/floor2.jpg); repeat: 15 10"></a-entity>
 <!-- Ceiling -->
-<!-- <a-entity geometry="primitive: box; depth: 18; height: 0.5; width: 30" position="0 7.5 2" material="shader: flat;  metalness: 0.8;
+<a-entity geometry="primitive: box; depth: 18; height: 0.5; width: 30" position="0 7.5 2" material="shader: flat;  metalness: 0.8;
 src: url(img/wood1.jpg); repeat: 4 10"></a-entity>
 <a-entity geometry="primitive: box; depth: 18; height: 0.5; width: 30" position="0 7.5 20" material="shader: flat;  metalness: 0.8;
-src: url(img/wood1.jpg); repeat: 4 10"></a-entity> -->
+src: url(img/wood1.jpg); repeat: 4 10"></a-entity>
 
 <!-- Wall Front -->
 <a-entity geometry="primitive: box; depth: 0.2; height: 7.5; width: 30" color="#52CDF1" position="0 3.5 -6.5" material="shader: standard; side: double; src: url(img/wall.jpg)"> ></a-entity>
@@ -314,7 +310,7 @@ src: url(img/wood1.jpg); repeat: 1 2"></a-entity>
           location.href='index.html'
         };
       });
-      
+
       // auto enter VR
         window.addEventListener('load', function () {
           var scene = document.querySelector('a-scene');
