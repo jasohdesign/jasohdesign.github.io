@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Home</title>
     <meta name="description" content="Home">
-    <script src="scripts/build.js"></script>
+    <!-- <script src="scripts/build.js"></script> -->
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script> 
     <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/master/dist/aframe-daydream-controller-component.min.js"></script>
@@ -29,7 +29,7 @@
         </a-entity>
         
         <!-- text -->
-        <!-- <a-collada-model src="#forRobin" position="-0.6 2.7 -5" scale="15 15 15"></a-collada-model> -->
+        <a-collada-model src="#forRobin" position="-0.6 2.7 -5" scale="15 15 15"></a-collada-model>
         <!-- <a-entity text-geometry="value: For Robin; font: #optimerBoldFont" position="-0.6 2.7 -5"></a-entity> -->
         
         <!-- center -->
@@ -43,7 +43,7 @@
         <!-- <a-sphere position="-1 0.3 -7" radius="0.2" color="#DCD9E7" opacity="0.5">
             <a-animation attribute="position" dur="5000" from="-1 0.3 -7" to="-1 0.3 -5" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
         </a-sphere> -->
-        <a-sphere class="selectable" id="ToBoatScene_Sphere" position="-1.0 0.6 -5" radius="0.3" color="#DCD9E7" opacity="0.5">
+        <a-sphere id="ToBoatScene_Sphere" class="selectable" position="-1.0 0.6 -5" radius="0.3" color="#DCD9E7" opacity="0.5">
             <a-animation id="ToBoatScene_Animation" attribute="position" dur="5000" from="-1.0 0.6 -5" to="-1.0 0.6 -7" fill="forward" direction="alternate" repeat="50000" ease-in-="linear"></a-animation>
         </a-sphere>
        <!--  <a-sphere position="1 1 -7" radius="0.2" color="#DCD9E7" opacity="0.5">
@@ -134,7 +134,7 @@
         var remote = document.querySelector('#remote');
         
         var BoatSphere = document.querySelector('#ToBoatScene_Sphere');
-        var BoatAnimation = document.querySelector('#ToBoatScene_Animation');
+        // var BoatAnimation = document.querySelector('#ToBoatScene_Animation');
         var goToBoatScene = false;
 
         // var speaker = document.querySelector('#speaker');
@@ -155,22 +155,26 @@
         BoatSphere.addEventListener('raycaster-intersected', function () {
         if (focused) return;
             focused = true;
-            BoatAnimation.stop();
+            // BoatAnimation.stop();
             goToBoatScene = true;
+            BoatSphere.setAttribute('color','#70B2FF');
+            BoatSphere.setAttribute('opacity','1');
         });
         back.addEventListener('raycaster-intersected-cleared', function () {
             focused = false;
-            BoatAnimation.start();
+            // BoatAnimation.start();
             goToBoatScene = false;
+            BoatSphere.setAttribute('color','#DCD9E7');
+            BoatSphere.setAttribute('opacity','0.5');
       })
       // go back to original water scene
         remote.addEventListener('buttondown', function (e) {
-        var target1 = e.target 
+        // var target1 = e.target 
         BoatSphere.setAttribute('color','black');
 
-        if (goToBoatScene == true){
+        // if (goToBoatScene == true){
           location.href='home.html'
-        };
+        // };
       });
     </script>
         
