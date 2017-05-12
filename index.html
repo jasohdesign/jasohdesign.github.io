@@ -9,11 +9,14 @@
     <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/master/dist/aframe-daydream-controller-component.min.js"></script>
     <script src="scripts/build.js"></script>
 
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+
   </head>
   <body>
     <a-scene>
         <a-assets>
-           <a-asset-item id="forRobin" src="models/forRobin.dae"></a-asset-item>
+           <a-asset-item id="forRobin" src="assets/forRobin.dae"></a-asset-item>
+           <!-- <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item> -->
         </a-assets>
         
         <a-entity position="0 0 1">
@@ -24,8 +27,10 @@
               <a-box id="position-guide" visible="false" position="0 0 -2"></a-box>
             </a-entity>
         </a-entity>
+        
         <!-- text -->
-        <a-collada-model data-interactive="true" src="#forRobin" position="-0.6 2.7 -5" scale="15 15 15"></a-collada-model>
+        <!-- <a-collada-model src="#forRobin" position="-0.6 2.7 -5" scale="15 15 15"></a-collada-model> -->
+        <!-- <a-entity text-geometry="value: For Robin; font: #optimerBoldFont" position="-0.6 2.7 -5"></a-entity> -->
         
         <!-- center -->
         <a-sphere position="0 2 -5" radius="0.5" color="#BFBCC8" opacity="0.5"></a-sphere>
@@ -159,10 +164,11 @@
             goToBoatScene = false;
       })
       // go back to original water scene
-      remote.addEventListener('buttondown', function (e) {
+        remote.addEventListener('buttondown', function (e) {
         var target1 = e.target 
-        // console.log(e.target);
-        if (oToBoatScene == true){
+        BoatSphere.setAttribute('color','black');
+
+        if (goToBoatScene == true){
           location.href='home.html'
         };
       });
