@@ -45,8 +45,11 @@
       <a-image class="selectable" src="#home_icon" position="2 -1 -4" width="1" height="1"></a-image>
   
       <script>
+      var icons = document.getElementsbyClassName('.selectable');
       var remote = document.querySelector('#remote');
-      var sound = document.querySelector('.selectable');
+      var back_icon = document.querySelector('#back_icon');
+      var sound = document.querySelector('#sound_icon');
+      var sound = document.querySelector('#home_icon');
       var ray = document.querySelector('#ray');
       var voice_message = document.querySelector('#voice_message');
       var touchStartAxes;
@@ -55,7 +58,20 @@
       var newScale = currentScale = 1;
       var focused = false;
       
-      // icons selected
+      // icons class selected
+      icons.addEventListener('raycaster-intersected', function () {
+        if (focused) return;
+        focused = true;
+        icons.setAttribute('width','1.5');
+        icons.setAttribute('height','1.5');
+      });
+      icons.addEventListener('raycaster-intersected-cleared', function () {
+        focused = false;
+        sound.setAttribute('width','1.0');
+        sound.setAttribute('height','1.0');
+      })
+
+      // sound icons selected
       sound.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         focused = true;
