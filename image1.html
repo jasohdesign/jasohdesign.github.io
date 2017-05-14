@@ -142,10 +142,10 @@
         window.addEventListener('load', function () {
           var scene = document.querySelector('a-scene');
           if (scene.hasLoaded) {
-            scene.enterVR();
+            sceneEl.enterVR();
           } else {
             el.addEventListener('loaded', function () {
-              scene.enterVR();
+              sceneEl.enterVR();
             });
           }
         });
