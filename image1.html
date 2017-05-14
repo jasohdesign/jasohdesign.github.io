@@ -119,9 +119,9 @@
       });
       home.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
+        backToHome = false;
         home.setAttribute('width','1.0');
         home.setAttribute('height','1.0');
-        backToHome = false;
       })
 
       remote.addEventListener('buttonup', function (e) {

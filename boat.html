@@ -75,10 +75,10 @@
       // sphere color change
       sphere1.addEventListener('raycaster-intersected', function () {
         if (focused) return;
+        RayOnSphere = true;
         focused = true;
         sphere1.setAttribute('material','src:img/pic1.jpg');
         sphere1.setAttribute('radius','4');
-        RayOnSphere = true;
       });
       sphere1.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
