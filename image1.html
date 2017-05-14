@@ -133,7 +133,7 @@
       });
       // go back to index.html 
       remote.addEventListener('buttondown', function (e) {
-        if (backToHome = true){
+        if (backToHome == true){
           location.href='index.html'
         };
       });
@@ -142,10 +142,10 @@
         window.addEventListener('load', function () {
           var scene = document.querySelector('a-scene');
           if (scene.hasLoaded) {
-            sceneEl.enterVR();
+            scene.enterVR();
           } else {
             el.addEventListener('loaded', function () {
-              sceneEl.enterVR();
+              scene.enterVR();
             });
           }
         });
