@@ -80,9 +80,7 @@
       })
       // go back to original water scene
       remote.addEventListener('buttondown', function (e) {
-        var target1 = e.target 
-        // console.log(e.target);
-        if (goBack == true){
+          if (goBack == true){
           location.href='boat.html'
         };
       });
@@ -103,8 +101,6 @@
       })
       // play sound
       remote.addEventListener('buttondown', function (e) {
-        var target1 = e.target 
-        // console.log(e.target);
         if (shouldPlaySound == true){
           voice_message.components.sound.playSound();
         } else{
@@ -137,8 +133,6 @@
       });
       // go back to index.html 
       remote.addEventListener('buttondown', function (e) {
-        var target1 = e.target 
-        // console.log(e.target);
         if (backToHome = true){
           location.href='index.html'
         };
