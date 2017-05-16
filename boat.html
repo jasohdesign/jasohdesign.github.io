@@ -12,6 +12,8 @@
       <a-asset-item id="boat-obj" src="assets/OldBoat.obj"></a-asset-item>
       <a-asset-item id="boat-mtl" src="assets/OldBoat.mtl"></a-asset-item>
       <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
+      <img id="back_icon" crossorigin="anonymous" src="img/back_icon.png">
+
       <audio id="sound" src="assets/waves_sound.mp3"></audio>
     </a-assets>
       
@@ -39,6 +41,9 @@
 
     <!-- WATER SOUND -->
     <a-entity sound="src: url(assets/waves_sound.mp3); autoplay: true"></a-entity>
+
+    <!-- BACK BUTTON -->
+    <a-image class="selectable" id="back" src="#back_icon" position="-3 -1 -4" width="1" height="1" rotation="0 90 0" id="boat"></a-image>
 
     <!-- OBJ MODEL -->
     <a-obj-model src="#boat-obj" mtl="#boat-mtl" position="0 -7 0" scale="0.5 0.5 0.5" rotation="0 180 0" id="boat"><a-obj-model>
@@ -72,6 +77,32 @@
       var newScale = currentScale = 1;
       var focused = false;
 
+      var back = document.querySelector('#back');
+      var goBack = false;
+      var backToHome = true;
+
+
+      // back selected
+      back.addEventListener('raycaster-intersected', function () {
+        if (focused) return;
+        focused = true;
+        back.setAttribute('width','1.3');
+        back.setAttribute('height','1.3');
+        goBack = true;
+      });
+      back.addEventListener('raycaster-intersected-cleared', function () {
+        focused = false;
+        back.setAttribute('width','1.0');
+        back.setAttribute('height','1.0');
+        goBack = false;
+      })
+      // go back to original water scene
+      remote.addEventListener('buttondown', function (e) {
+          if (goBack == true){
+          location.href='index.html'
+        };
+      });
+      
       // sphere color change
       sphere1.addEventListener('raycaster-intersected', function () {
         if (focused) return;
