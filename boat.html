@@ -148,12 +148,12 @@
         if (focused) return;
         RayOnSphere2 = true;
         focused = true;
-        sphere1.setAttribute('color','white');
+        sphere2.setAttribute('color','white');
       });
       sphere2.addEventListener('raycaster-intersected-cleared', function () {
         focused = false;
-        sphere1.setAttribute('material','src:img/pic2.jpg');
-        sphere1.setAttribute('radius','4');
+        sphere2.setAttribute('material','src:img/pic2.jpg');
+        sphere2.setAttribute('radius','4');
         RayOnSphere2 = false;
       })
       // trackpad to scale
