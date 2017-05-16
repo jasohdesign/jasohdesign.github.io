@@ -19,7 +19,7 @@
       <a-assets>
         <img id="pic1" crossorigin="anonymous" src="img/pic1.jpg">
         <img id="sound_icon" crossorigin="anonymous" src="img/sound_icon.png">
-        <img id="home_icon" crossorigin="anonymous" src="img/home_icon.png">
+        <!-- <img id="home_icon" crossorigin="anonymous" src="img/home_icon.png"> -->
         <img id="back_icon" crossorigin="anonymous" src="img/back_icon.png">
         <audio crossorigin="anonymous" src="assets/voice_message.mp3"></audio>
       </a-assets>
@@ -42,7 +42,7 @@
       <!-- Icons -->
       <a-image class="selectable" id="back" src="#back_icon" position="0.5 -1 -4" width="1" height="1"></a-image>
       <a-image class="selectable" id="speaker" src="#sound_icon" position="1.5 -1 -4" width="1" height="1"></a-image>
-      <a-image class="selectable" id="home" src="#home_icon" position="-0.5 -1 -4" width="1" height="1"></a-image>
+      <!-- <a-image class="selectable" id="home" src="#home_icon" position="-0.5 -1 -4" width="1" height="1"></a-image> -->
   
       <script>
       var sound = document.querySelector('[sound]');
@@ -50,7 +50,7 @@
       var remote = document.querySelector('#remote');
       var back = document.querySelector('#back');
       var speaker = document.querySelector('#speaker');
-      var home = document.querySelector('#home');
+      // var home = document.querySelector('#home');
 
       var shouldPlaySound = false;
       var goBack = false;
@@ -110,33 +110,33 @@
       });
 
       // home selected
-      home.addEventListener('raycaster-intersected', function () {
-        if (focused) return;
-        focused = true;
-        backToHome = true;
-        home.setAttribute('width','1.3');
-        home.setAttribute('height','1.3');
-      });
-      home.addEventListener('raycaster-intersected-cleared', function () {
-        focused = false;
-        backToHome = false;
-        home.setAttribute('width','1.0');
-        home.setAttribute('height','1.0');
-      })
+      // home.addEventListener('raycaster-intersected', function () {
+      //   if (focused) return;
+      //   focused = true;
+      //   backToHome = true;
+      //   home.setAttribute('width','1.3');
+      //   home.setAttribute('height','1.3');
+      // });
+      // home.addEventListener('raycaster-intersected-cleared', function () {
+      //   focused = false;
+      //   backToHome = false;
+      //   home.setAttribute('width','1.0');
+      //   home.setAttribute('height','1.0');
+      // })
 
-      remote.addEventListener('buttonup', function (e) {
-        if (focused) {
-          sound.setAttribute('color','purple');
-        } else {
-          sound.setAttribute('color','orange');
-        }
-      });
+      // remote.addEventListener('buttonup', function (e) {
+      //   if (focused) {
+      //     sound.setAttribute('color','purple');
+      //   } else {
+      //     sound.setAttribute('color','orange');
+      //   }
+      // });
       //go back to index.html 
-      remote.addEventListener('buttondown', function (e) {
-        if (backToHome == true){
-          location.href='index.html'
-        };
-      });
+      // remote.addEventListener('buttondown', function (e) {
+      //   if (backToHome == true){
+      //     location.href='index.html'
+      //   };
+      // });
 
       // auto enter VR
         // window.addEventListener('load', function () {
