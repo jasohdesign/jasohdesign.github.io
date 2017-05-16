@@ -70,7 +70,11 @@
     <script>
       var remote = document.querySelector('#remote');
       var sphere1 = document.querySelector('#sphere1');
+      var sphere2 = document.querySelector('#sphere1');
+
       var RayOnSphere = false;
+      var RayOnSphere2 = false;
+
       var ray = document.querySelector('#ray');
       var touchStartAxes;
       var minScale = 0.1;
@@ -104,7 +108,7 @@
         };
       });
 
-      // sphere color change
+      // sphere1 color change
       sphere1.addEventListener('raycaster-intersected', function () {
         if (focused) return;
         RayOnSphere = true;
@@ -138,24 +142,41 @@
           location.href='image1.html';
         }
       });
-      // remote.addEventListener('buttonup', function (e) {
-      //   if (focused) {
-      //     sphere1.setAttribute('color','purple');
-      //   } else {
-      //     sphere1.setAttribute('color','orange');
-      //   }
-      // });
-    // auto enter VR
-        // window.addEventListener('load', function () {
-        //   var scene = document.querySelector('a-scene');
-        //   if (scene.hasLoaded) {
-        //     scene.enterVR();
-        //   } else {
-        //     el.addEventListener('loaded', function () {
-        //       scene.enterVR();
-        //     });
-        //   }
-        // });
+     
+     // sphere2 color change
+      sphere2.addEventListener('raycaster-intersected', function () {
+        if (focused) return;
+        RayOnSphere = true;
+        focused = true;
+        sphere1.setAttribute('color','white');
+      });
+      sphere2.addEventListener('raycaster-intersected-cleared', function () {
+        focused = false;
+        sphere1.setAttribute('material','src:img/pic2.jpg');
+        sphere1.setAttribute('radius','4');
+        RayOnSphere = false;
+      })
+      // trackpad to scale
+      remote.addEventListener('axismove', function (e) {
+        if (!touchStartAxes) return;
+        var deltaX = e.detail.axis[0] - touchStartAxes[0];
+        newScale = currentScale + deltaX*scaleMultiplier;
+        if (newScale < minScale) newScale = minScale;
+        sphere2.setAttribute('scale',newScale+' '+newScale+' '+newScale);
+      });
+      remote.addEventListener('touchstart', function (e) {
+        touchStartAxes = e.detail.axis;
+      });
+      remote.addEventListener('touchend', function (e) {
+        touchStartAxes = null;
+        currentScale = newScale;
+      });
+      remote.addEventListener('buttondown', function (e) {
+        sphere2.setAttribute('color','black');
+        if (RayOnSphere == true){
+          location.href='image2.html';
+        }
+      });
     </script>
 
     
