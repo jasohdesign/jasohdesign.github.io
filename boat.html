@@ -146,7 +146,7 @@
      // sphere2 color change
       sphere2.addEventListener('raycaster-intersected', function () {
         if (focused) return;
-        RayOnSphere = true;
+        RayOnSphere2 = true;
         focused = true;
         sphere1.setAttribute('color','white');
       });
@@ -154,7 +154,7 @@
         focused = false;
         sphere1.setAttribute('material','src:img/pic2.jpg');
         sphere1.setAttribute('radius','4');
-        RayOnSphere = false;
+        RayOnSphere2 = false;
       })
       // trackpad to scale
       remote.addEventListener('axismove', function (e) {
@@ -173,7 +173,7 @@
       });
       remote.addEventListener('buttondown', function (e) {
         sphere2.setAttribute('color','black');
-        if (RayOnSphere == true){
+        if (RayOnSphere2 == true){
           location.href='image2.html';
         }
       });
